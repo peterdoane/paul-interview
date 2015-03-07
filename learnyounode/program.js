@@ -1,18 +1,11 @@
+var http = require('http');
 
-var dirname = process.argv[2];
-var ext = process.argv[3];
+var url = process.argv[2];
 
-var fls = require('./filtered-ls');
-
-function callback(err, list) {
-	if (err) {
-		console.log(err);
-	} else {
-		list.forEach(function(entry) {
-			console.log(entry);
-		});
-	}
-}
-
-fls(dirname, ext, callback);
+http.get(url, function(response) {
+	response.setEncoding('utf8');
+	response.on("data", function(data) {
+		console.log(data);
+	})
+});
 
