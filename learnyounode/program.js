@@ -1,21 +1,18 @@
-var fs = require('fs');
-var path = require('path');
 
 var dirname = process.argv[2];
-var ext = '.' + process.argv[3];
+var ext = process.argv[3];
+
+var fls = require('./filtered-ls');
 
 function callback(err, list) {
 	if (err) {
 		console.log(err);
 	} else {
-		for (var i = 0; i < list.length; i++) {
-			var file = list[i];
-			if (path.extname(file) === ext) {
-				console.log(file);
-			}
-		}
+		list.forEach(function(entry) {
+			console.log(entry);
+		});
 	}
 }
 
-fs.readdir(dirname, callback);
+fls(dirname, ext, callback);
 
